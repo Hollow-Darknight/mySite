@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Portail{% endblock %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/accueil.css' %}">
+
+{% block body %}
+    <div id="test">
+
+    </div>
+    <div class="container-fluid bg-light w-100 h-100">
+        <div class="row">
+            {# Block de gauche #}
+            <div class="col-lg-2 col-md-2 col-sm-12 mt-5 shadow p-3 mb-5 bg-light rounded">
+                Rien pour le moment
+            </div>
+
+            {# Block principale #}
+            <div class="col-lg-8 col-md-8 col-sm-12 mt-5">
+                {# Affichage s'il n'y a aucune catégories #}
+                <div class="text-center shadow p-3 mb-5 bg-light rounded">
+                    <p class="display-1 mt-4">
+                        <i class="fa fa-frown"></i>Désolé...
+                    </p>
+                    <h3><i class="fas fa-dragon"></i> C'est vide...</h3>
+                    <h4>It's dangerous to go alone take this <i class="fas fa-mobile-alt"></i></h4>
+                </div>
+            </div>
+
+            {# Block de droite #}
+            <div class="col-lg-2 col-md-2 col-sm-12 mt-5 shadow p-3 mb-5 bg-light rounded">
+                <h5>Catégories</h5>
+                <ul class="list-unstyled">
+                    {% for cat in categories %}
+                        <li>
+                            <a href="#"
+                               class="badge badge-secondary">{{ cat.name|capfirst }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

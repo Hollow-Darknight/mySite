@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8">
+	<title>Bienvenue à Aulodrum</title>
+	<meta name="author" content="Vincent Grondin">
+	<meta name="description" content="Ceci est un site qui représente mon univers">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link type="text/css" rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Modern+Antiqua&display=swap" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="{% static 'css/accueil.css' %}">
+	<link type="text/css" rel="stylesheet" href="{% static 'css/landpage-animation.css' %}">
+	<link rel="icon" type="image/x-icon" href=""/>
+	<script src="https://kit.fontawesome.com/c8889093df.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-transparent">
+            <a class="navbar-brand" href="#"><i class="fas fa-dragon"></i> World of Aulodrum</a>
+        </nav>
+	</header>
+
+	<main>
+		<div class="container-fluid section" id="fullpage">
+			<div class="row">
+				<div class="col-xl-2 col-lg-2 col-md-3 col-sm-12 col-xs-12">
+					Colonne vide
+				</div>
+
+				<div class="offset-xl-1 col-xl-6 offset-lg-1 col-lg-6 offset-md-1 col-md-4 col-sm-12 col-xs-12" id="persos">
+					<h1 class="text-center ml11">
+						<span class="text-wrapper">
+							<span class="line line1"></span>
+							<span class="letters">Bienvenue sur le Portail publique de Nacia</span>
+						</span>
+					</h1>
+
+					<div class="row" id="character-display">
+						{# Hollow #}
+						<div class="col-2 characters" id="red" data-url="{% url 'home' %}">
+							Hollow
+						</div>
+
+						{# Abysse #}
+						<div class="col-2 characters" id="purple" data-url="{% url 'home' %}">
+							Abysse
+						</div>
+
+						{# Saphire #}
+						<div class="col-2 characters" id="blue" data-url="{% url 'home' %}">
+							Saphire
+						</div>
+
+						{# Violette #}
+						<div class="col-2 characters" id="violet" data-url="{% url 'home' %}">
+							Violette
+						</div>
+
+						{# Fatality #}
+						<div class="col-2 characters" id="black" data-url="{% url 'home' %}">
+							Fatality
+						</div>
+
+						{# Sylith #}
+						<div class="col-2 characters" id="green" data-url="{% url 'home' %}">
+							Sylith
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 my-auto mx-auto">
+							<p class="text-center display-4" id="selectedCharacterName"></p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-2 col-lg-2 col-md-3 col-sm-12 col-xs-12">
+					Colonne vide
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer class="footer fixed-bottom my-auto">
+		<div class="container text-center">
+			<span class="text-muted">Fait par Vincent Grondin</span>
+		</div>
+	</footer>
+
+	<script src="{% static 'js/jQuery/jquery.min.js' %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+	<script type="text/javascript" src="{% static 'fullpage/js/fullpage.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'fullpage/js/easing.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/landpage-animation.js' %}"></script>
+	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/accueil.js' %}"></script>
+</body>
+
+</html>

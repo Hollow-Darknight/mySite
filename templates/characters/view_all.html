@@ -1,0 +1,30 @@
+{% extends 'content_base.html' %}
+{% load static %}
+
+{% block content_body %}
+    <div class="row">
+    {% for personnage in personnages %}
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="card">
+                <img class="card-img-top" src="{% static 'img/characters/' %}{{ personnage.prenom }}/{{ personnage.image_filename }}.png" alt="Card image cap">
+                <div class="card-body">
+                    <h4 class="card-title">{{ personnage.prenom }} {{ personnage.nom }}</h4>
+                    <p class="card-text">
+                        {{ personnage.resumer }}
+                    </p>
+                    <a href="#!" class="btn btn-primary">En savoir plus</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-3">Oh non !</h1>
+                <p class="lead">
+                    Il n'y a rien.
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

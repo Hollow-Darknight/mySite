@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>{% block title %}Bienvenue sur mon blog{% endblock %}</title>
+
+        {# Block des feuilles de style #}
+        {% block stylesheets %}
+            <link type="text/css" rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+            <link href="https://fonts.googleapis.com/css?family=Modern+Antiqua&display=swap" rel="stylesheet">
+        {% endblock %}
+
+        <script src="https://kit.fontawesome.com/c8889093df.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'index' %}"><i class="fas fa-dragon"></i> World of Aulodrum</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'characters' %}">Personnages <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" wtx-context="E7659275-E1C9-4245-992B-15B0F800E5CC">
+                    <input class="form-control mr-sm-2 bg-dark outline-line" type="text" placeholder="Rechercher..." aria-label="Search" wtx-context="0C645D17-A0A1-4EB2-9B2B-090345D0A3FE">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </nav>
+
+
+        {# Block principal de contenu #}
+        {% block body %}
+            Chargement...
+        {% endblock %}
+
+        <footer class="footer">
+            <div class="container text-center">
+                <span class="text-muted">Fait par Vincent Grondin</span>
+            </div>
+        </footer>
+
+        {% block javascripts %}
+            <script src="{% static 'js/jQuery/jquery.min.js' %}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        {% endblock %}
+    </body>
+</html>
