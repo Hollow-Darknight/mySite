@@ -1,30 +1,37 @@
 {% extends 'content_base.html' %}
 {% load static %}
 
+{% block stylesheets %}
+    {{ block.super }}
+    <link type="text/css" rel="stylesheet" href="{% static 'css/characters-page.css' %}">
+{% endblock %}
+
 {% block content_body %}
-    <div class="row">
+<div class="row pl-2 pr-2">
     {% for personnage in personnages %}
-        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="card">
-                <img class="card-img-top" src="{% static 'img/characters/' %}{{ personnage.prenom }}/{{ personnage.image_filename }}.png" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">{{ personnage.prenom }} {{ personnage.nom }}</h4>
-                    <p class="card-text">
-                        {{ personnage.resumer }}
-                    </p>
-                    <a href="#!" class="btn btn-primary">En savoir plus</a>
+        <div class="card col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-5 shadow d-block btn btn-outline-dark">
+            <div class="row m-3">
+                <div class="col-xl-4 col-lg-4 col-md-3 col-sm-2 col-2">
+                    <img class="img-thumbnail" src="{% static 'img/characters/' %}{{ personnage.prenom }}/{{ personnage.image_filename }}.png" alt="Image {{ character.prenom }}">
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-9 col-sm-10 col-10 text-left">
+                    <h4>{{ personnage.prenom }} {{ personnage.nom }}</h4>
+                    <p>{{ personnage.resumer|linebreaksbr }}</p>
                 </div>
             </div>
         </div>
     {% empty %}
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-3">Oh non !</h1>
-                <p class="lead">
-                    Il n'y a rien.
-                </p>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="jumbotron jumbotron-fluid text-center">
+                <div class="container-fluid">
+                    <h1 class="display-3">Oh non !</h1>
+                    <p class="lead">
+                        Il n'y a rien.
+                    </p>
+                </div>
             </div>
         </div>
     {% endfor %}
-    </div>
+</div>
+
 {% endblock %}
