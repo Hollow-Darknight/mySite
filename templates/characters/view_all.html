@@ -7,14 +7,14 @@
 {% endblock %}
 
 {% block content_body %}
-<div class="row pl-2 pr-2">
+<div class="row">
     {% for personnage in personnages %}
-        <div class="card col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-5 shadow d-block btn btn-outline-dark">
+        <div class="card col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 mb-5 shadow d-block btn btn-outline-dark">
             <div class="row m-3">
-                <div class="col-xl-4 col-lg-4 col-md-3 col-sm-2 col-2">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
                     <img class="img-thumbnail" src="{% static 'img/characters/' %}{{ personnage.prenom }}/{{ personnage.image_filename }}.png" alt="Image {{ character.prenom }}">
                 </div>
-                <div class="col-xl-8 col-lg-8 col-md-9 col-sm-10 col-10 text-left">
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10 text-left">
                     <h4>{{ personnage.prenom }} {{ personnage.nom }}</h4>
                     <p>{{ personnage.resumer|linebreaksbr }}</p>
                 </div>
