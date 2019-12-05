@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>{% block title %}Bienvenue sur mon blog{% endblock %}</title>
+        <title>{% block title %}Bienvenue dans le monde d'Aulodrum{% endblock %}</title>
 
         {# Block des feuilles de style #}
         {% block stylesheets %}
@@ -24,15 +24,11 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'characters' %}">Personnages <span class="sr-only">(current)</span></a>
+                    {% for item in navigation_items %}
+                    <li class="nav-item {% if item.active %}active{% endif %}">
+                        <a class="nav-link" href="{{ item.url }}">{{ item.name }}</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
+                    {% endfor %}
                 </ul>
                 <form class="form-inline my-2 my-lg-0" wtx-context="E7659275-E1C9-4245-992B-15B0F800E5CC">
                     <input class="form-control mr-sm-2 bg-dark outline-line" type="text" placeholder="Rechercher..." aria-label="Search" wtx-context="0C645D17-A0A1-4EB2-9B2B-090345D0A3FE">

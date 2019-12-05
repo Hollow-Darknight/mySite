@@ -5,13 +5,18 @@ from django.template.defaultfilters import slugify
 
 # Create your models here.
 class Personnage(models.Model):
-    nom = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)
+    nom = models.CharField(max_length=100)
     age = models.IntegerField()
     origine = models.CharField(max_length=100)
     resumer = models.TextField(blank=True, null=True)
     histoire = models.TextField(blank=True, null=True)
     image_filename = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    publier = models.BooleanField(default=True)
+
+    def slug(self):
+        return slugify(self.prenom)
 
     def __str__(self):
         return """Nom : {}
@@ -20,15 +25,14 @@ class Personnage(models.Model):
         Origine : {}
         Résumer : {}
         Histoire : {}
+        created_at : {}
         """.format(self.nom,
                    self.prenom,
                    self.age,
                    self.origine,
                    self.resumer,
-                   self.histoire)
-
-    def slug(self):
-        return "{}-{}".format(self.prenom, self.nom)
+                   self.histoire,
+                   self.created_at)
 
 
 class Galerie(models.Model):

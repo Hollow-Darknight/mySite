@@ -7,12 +7,18 @@ from characters.models import Personnage, Galerie, Commentaire
 
 @admin.register(Personnage)
 class PersonnageAdmin(admin.ModelAdmin):
-    search_fields = ['nom', 'prenom']
+    search_fields = ['prenom', 'nom']
     list_display = (
         'prenom',
         'nom',
-        'image_filename'
+        'image_filename',
+        'publier',
+        'created_at'
     )
+
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(attrs={'rows': 20, 'cols': 90})},
+    }
 
 
 @admin.register(Galerie)
