@@ -1,6 +1,7 @@
 $(document).ready(function () {
-    $('.characters').mouseenter(showName);
+    let color = $('.characters').mouseenter(showName);
     $('.characters').mouseleave(hideName);
+    $('#' + color).click(goToPage(color));
 });
 
 function showName(e) {
@@ -36,9 +37,18 @@ function showName(e) {
             break;
     }
     $('#selectedCharacterName').html(characterName);
+    
+    return color
 }
 
 function hideName(e){
     e.preventDefault();
     $('#selectedCharacterName').empty();
+}
+
+function goToPage(color, e){
+    e.preventDefault();
+    let redirect = $(this).data('url');
+    alert("Clic sur " + $(this).data('url'));
+    window.location.href = redirect;
 }

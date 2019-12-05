@@ -1,0 +1,24 @@
+{% extends 'content_base.html' %}
+{% load static %}
+
+{% block title %}{{ personnage.prenom }} {{ personnage.nom }}{% endblock %}
+
+{% block content_body %}
+<div class="row mb-1">
+    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
+        <img src="{% static 'img/characters/' %}{{ personnage.prenom }}/{{ personnage.image_filename }}.png" class="img-fluid" alt="Hollow">
+    </div>
+    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+        <h5>Prénom : {{ personnage.prenom }}</h5>
+        <h5>Nom : {{ personnage.nom }}</h5>
+        <h5>Âge : {{ personnage.age }}</h5>
+        <h5>Origine : {{ personnage.origine }}</h5>
+    </div>
+</div>
+<div class="row mt-1">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <h6>Histoire :</h6>
+        <p>{{ personnage.histoire|linebreaks|safe }}</p>
+    </div>
+</div>
+{% endblock %}

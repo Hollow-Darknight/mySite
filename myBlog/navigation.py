@@ -4,8 +4,8 @@ NAV_HOME = "Accueil"
 NAV_CHARACTERS = 'Personnages'
 
 NAV_ITEMS = (
-    (NAV_HOME, reverse_lazy('home')),
-    (NAV_CHARACTERS, reverse_lazy('characters'))
+    (NAV_HOME, reverse_lazy('index')),
+    (NAV_CHARACTERS, reverse_lazy('characters-all'))
 )
 
 

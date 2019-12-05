@@ -17,12 +17,13 @@ def all_characters(request):
     return render(request, 'characters/view_all.html', context)
 
 
-def character_detail(request, personnage_prenom):
-    personnage = get_object_or_404(Personnage, prenom=personnage_prenom)
+def character_details(request, slug):
+    prenom = slug.capitalize()
+    personnage = Personnage.objects.get(prenom=prenom)
 
     context = {
         'navigation_items': navigation.navigation_items(navigation.NAV_CHARACTERS),
         'personnage': personnage
     }
 
-    return render(request, 'characters/character_detail', context)
+    return render(request, 'characters/character_details.html', context)

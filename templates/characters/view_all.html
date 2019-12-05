@@ -10,27 +10,29 @@
     {% for personnage in personnages %}
     <div class="row">
         <div class="card btn btn-outline-dark col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-5 ml-2 shadow d-block">
-            <div class="row m-3">
-                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-8 col-8">
-                    <img class="img-thumbnail" src="{% static 'img/characters/' %}{{ personnage.prenom }}/{{ personnage.image_filename }}.png" alt="Image {{ character.prenom }}">
-                </div>
-                <div class="card-title col-xl-2 col-lg-2 col-md-4 col-sm-8 col-8 text-left">
-                    <h4>{{ personnage.prenom }} {{ personnage.nom }}</h4>
-                    <h6>Age : {{ personnage.age }} ans</h6>
-                    <h6>Origine : {{ personnage.origine }}</h6>
-                    <h6 class="text-muted">Editer le {{ personnage.created_at|date:"d/m/Y" }} </h6>
-                </div>
-                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12 text-left">
-                    <h6>Résumer</h6>
-                    <div class="card-body border border-secondary">
-                        {{ personnage.resumer|linebreaks|safe }}
+            <a href="{% url 'character-details' personnage.slug %}">
+                <div class="row m-3">
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-8 col-8">
+                        <img class="img-thumbnail" src="{% static 'img/characters/' %}{{ personnage.prenom }}/thumbnail.png" alt="Image {{ character.prenom }}">
+                    </div>
+                    <div class="card-title col-xl-2 col-lg-2 col-md-4 col-sm-8 col-8 text-left">
+                        <h4>{{ personnage.prenom }} {{ personnage.nom }}</h4>
+                        <h6>Age : {{ personnage.age }} ans</h6>
+                        <h6>Origine : {{ personnage.origine }}</h6>
+                        <h6 class="text-muted">Editer le {{ personnage.created_at|date:"d/m/Y" }} </h6>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12 text-left">
+                        <h6>Résumer</h6>
+                        <div class="card-body border border-secondary">
+                            {{ personnage.resumer|linebreaks|safe }}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
     {% empty %}
-    <div class="row">
+    <div class="row mt-2">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="jumbotron jumbotron-fluid text-center">
                 <div class="container-fluid">
