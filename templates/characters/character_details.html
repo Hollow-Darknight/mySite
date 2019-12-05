@@ -1,5 +1,6 @@
 {% extends 'content_base.html' %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block title %}{{ personnage.prenom }} {{ personnage.nom }}{% endblock %}
 
@@ -19,6 +20,57 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <h6>Histoire :</h6>
         <p>{{ personnage.histoire|linebreaks|safe }}</p>
+    </div>
+</div>
+
+{# Zone Commentaires #}
+<div class="row mt-5" id="#commentaires">
+    <h3>Commentaires (comments.count)</h3>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        {# Message utilisateurs #}
+        {% if message %}
+            <div class="alert alert-success alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+            </div>
+        {% endif %}
+
+        {# Affichage des commentaires existant #}
+        <ul class="list-unstyled">
+                {% for comment in comments %}
+                <li class="media">
+                    <img class="mr-3" src="{% static 'img/character/placeholder-img.png' %}">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">{{ comment.author_name }}</h5>
+                        <p>
+                            <small class="text-muted">{{ comment.created_at }}</small>
+                        </p>
+                        <p>
+                            {% if comment.status == 'moderated' %}
+                                <span class="font-weight-light font-italic text-muted">
+                                    [[ Moderated comment: {{ comment.moderation_text }} ]]
+                                </span>
+                            {% else %}
+                                {{ comment.text }}
+                            {% endif %}
+                        </p>
+                    </div>
+                </li>
+                {% empty %}
+                <li class="media">Il n'y a pas de commentaires !</li>
+                {% endfor %}
+            </ul>
+
+            <form action="{% url 'character-details' personnage.slug %}" method="post" class="form">
+                {% csrf_token %}
+                {% bootstrap_form comment_form %}
+
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                {% endbuttons %}
+            </form>
     </div>
 </div>
 {% endblock %}
