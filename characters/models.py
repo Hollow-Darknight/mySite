@@ -56,13 +56,13 @@ class Commentaire(models.Model):
     personnage = models.ForeignKey('Personnage',
                              on_delete=models.CASCADE,
                              related_name='commentaires')
-    author_name = models.CharField(max_length=100)
-    text = models.TextField()
+    nom_auteur = models.CharField(max_length=100)
+    texte = models.TextField()
     status = models.CharField(max_length=20,
                               default=STATUS_VISIBLE,
                               choices=STATUS_CHOICES)
-    moderation_text = models.CharField(max_length=200, blank=True)
+    texte_moderation = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '{} - {} (status={})'.format(self.author_name, self.text[:20], self.status)
+        return '{} - {} (status={})'.format(self.nom_auteur, self.texte[:20], self.status)

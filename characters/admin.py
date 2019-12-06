@@ -28,15 +28,16 @@ class GalerieAdmin(admin.ModelAdmin):
 
 @admin.register(Commentaire)
 class CommentaireAdmin(admin.ModelAdmin):
-    search_fields = ['personnage__nom', 'personnage__prenom', 'author_name']
+    search_fields = ['personnage__nom', 'personnage__prenom', 'nom_auteur']
     list_display = (
         'personnage',
-        'author_name',
+        'nom_auteur',
         'status',
-        'moderation_text',
-        'text'
+        'texte_moderation',
+        'texte',
+        'created_at'
     )
 
-    list_editable = ('status', 'moderation_text')
+    list_editable = ('status', 'texte_moderation')
     list_filter = ('status', )
 

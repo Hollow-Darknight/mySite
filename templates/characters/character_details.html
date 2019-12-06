@@ -24,8 +24,8 @@
 </div>
 
 {# Zone Commentaires #}
-<div class="row mt-5" id="#commentaires">
-    <h3>Commentaires (comments.count)</h3>
+<div class="row mt-5" id="commentaires">
+    <h3>Commentaires ({{ comments.count }})</h3>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         {# Message utilisateurs #}
         {% if message %}
@@ -41,19 +41,19 @@
         <ul class="list-unstyled">
                 {% for comment in comments %}
                 <li class="media">
-                    <img class="mr-3" src="{% static 'img/character/placeholder-img.png' %}">
+                    <img class="mr-3" src="{% static 'img/characters/placeholder-img.png' %}">
                     <div class="media-body">
-                        <h5 class="mt-0 mb-1">{{ comment.author_name }}</h5>
+                        <h5 class="mt-0 mb-1">{{ comment.nom_auteur }}</h5>
                         <p>
-                            <small class="text-muted">{{ comment.created_at }}</small>
+                            <small class="text-muted">Publier le {{ comment.created_at|date:'d/m/Y' }}</small>
                         </p>
                         <p>
                             {% if comment.status == 'moderated' %}
                                 <span class="font-weight-light font-italic text-muted">
-                                    [[ Moderated comment: {{ comment.moderation_text }} ]]
+                                    [[ Moderated comment: {{ comment.texte_moderation }} ]]
                                 </span>
                             {% else %}
-                                {{ comment.text }}
+                                {{ comment.texte }}
                             {% endif %}
                         </p>
                     </div>

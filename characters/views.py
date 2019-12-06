@@ -8,7 +8,7 @@ from characters.forms import CreateCommentForm
 
 # Create your views here.
 def all_characters(request):
-    personnages = Personnage.objects.all().order_by('-created_at')
+    personnages = Personnage.objects.filter(publier=True).order_by('-created_at')
 
     context = {
         'navigation_items': navigation.navigation_items(navigation.NAV_CHARACTERS),
@@ -31,7 +31,7 @@ def character_details(request, slug, message=""):
             comment.personnage = personnage
             comment.save()
 
-            args = [personnage.slug, 'Votre commentaire a été envoyé !']
+            args = [slug, 'Votre commentaire a été envoyé !']
             return HttpResponseRedirect(reverse('character-details-message', args=args) + '#commentaires')
     else:
         comment_form = CreateCommentForm()
