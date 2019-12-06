@@ -2,6 +2,39 @@
 
 {% block body %}
     <div class="container-fluid">
+                {# Block Message #}
+        {% block messageOk %}
+            {% if messageOk %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                {{ messageOk|safe }}
+            </div>
+            {% endif %}
+        {% endblock %}
+
+        {% block messageWarning %}
+            {% if messageWaning %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ messageWarning|safe }}
+                </div>
+            {% endif %}
+        {% endblock %}
+
+        {% block messageError %}
+            {% if messageError %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ messageError|safe }}
+                </div>
+            {% endif %}
+        {% endblock %}
         <div class="row m-5">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 {% block content_body %}

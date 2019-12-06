@@ -45,7 +45,7 @@
                     <div class="media-body">
                         <h5 class="mt-0 mb-1">{{ comment.nom_auteur }}</h5>
                         <p>
-                            <small class="text-muted">Publier le {{ comment.created_at|date:'d/m/Y' }}</small>
+                            <small class="text-muted">Publier le {{ comment.created_at|date:'d/m/Y' }} à {{ comment.created_at|date:'h:m' }}</small>
                         </p>
                         <p>
                             {% if comment.status == 'moderated' %}
@@ -56,8 +56,11 @@
                                 {{ comment.texte }}
                             {% endif %}
                         </p>
+                        <button class="btn btn-outline-dark" type="button"><small>Editer</small></button>
+                        <button class="btn btn-outline-dark" type="button"><small>Supprimer</small></button>
                     </div>
                 </li>
+                <hr>
                 {% empty %}
                 <li class="media">Il n'y a pas de commentaires !</li>
                 {% endfor %}

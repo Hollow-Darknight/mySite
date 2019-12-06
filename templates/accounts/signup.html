@@ -1,0 +1,34 @@
+{% extends 'content_base.html' %}
+
+{% block content_body %}
+<h1>Connexion</h1>
+
+{% if error %}
+    <div class="alert alert-danger" role="alert">
+      <strong>Attention : </strong> {{ error }}
+    </div>
+{% endif %}
+
+<form method="post" action="{% url 'signup' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="username">Nom d'utilisateur :</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Dupont">
+    </div>
+    <div class="form-group">
+        <label for="email">Adresse email :</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="azerty@azerty.xyz">
+    </div>
+    <div class="form-group">
+        <label for="pass">Mot de passe :</label>
+        <input type="password" class="form-control" id="pass" name="pass" placeholder="Mot de passe">
+    </div>
+    <div class="form-group">
+        <label for="confirmPass">Confirmation du mot de passe :</label>
+        <input type="password" class="form-control" id="confirmPass" name="confirmPass" placeholder="Confirmer le mot de passe">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-outline-dark">Inscription</button>
+    </div>
+</form>
+{% endblock %}

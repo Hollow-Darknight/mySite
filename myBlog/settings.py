@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'home.apps.HomeConfig',
     'characters.apps.CharactersConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
