@@ -20,7 +20,6 @@ NAV_ITEMS = (
 
 
 def navigation_items(selected_item):
-
     items = []
     for name, url in NAV_ITEMS:
         items.append({
