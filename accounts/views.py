@@ -11,11 +11,20 @@ def my_account(request):
 
 
 def login(request):
-    context = {
-        'navigation_items': navigation.navigation_items(navigation.NAV_LOGIN),
-    }
+    if request.method == 'POST':
+        user = auth.authenticate(username=request.POST['username'], password=request.POST['pass'])
+        if user is not None:
+            auth.login(request, user)
+            return redirect('characters')
+        else:
+            message = "Adresse mail ou mot de passe incorrecte."
+            context = {
+                'error': message
+            }
 
-    return render(request, 'accounts/login.html', context)
+            return render(request, 'accounts/login.html', context)
+    else:
+        return render(request, 'accounts/login.html')
 
 
 def signup(request):
@@ -26,7 +35,6 @@ def signup(request):
                 email = User.objects.get(email=request.POST['email'])
                 message = "Le nom d'utilisateur ou l'adresse email est déjà utilisé."
                 context = {
-                    'navigation_items': navigation.navigation_items(navigation.NAV_SIGNUP),
                     'error': message
                 }
                 return render(request, 'accounts/signup.html', context)
@@ -34,17 +42,18 @@ def signup(request):
                 user = User.objects.create_user(username=request.POST['username'], password=request.POST['confirmPass'], email=request.POST['email'])
                 auth.login(request, user)
                 message = "Bienvenue {}, vous êtes maintenant connecté !".format(request.POST['username'])
-                return redirect('characters', message)
+                return redirect('characters')
+        else:
+            message = "Les mots de passe ne correspondent pas."
+            context = {
+                'error': message
+            }
+            return render(request, 'accounts/signup.html', context)
     else:
-        context = {
-            'navigation_items': navigation.navigation_items(navigation.NAV_SIGNUP)
-        }
-        return render(request, 'accounts/signup.html', context)
+        return render(request, 'accounts/signup.html')
 
 
 def logout(request):
-    context = {
-        'navigation_items': navigation.navigation_items(navigation.NAV_LOGOUT),
-    }
-
-    return render(request, 'accounts/login.html', context)
+    if request.method == 'POST':
+        auth.logout(request)
+        return redirect('characters')

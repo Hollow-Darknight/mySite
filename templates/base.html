@@ -29,6 +29,22 @@
                         <a class="nav-link" href="{{ item.url }}">{{ item.name }}</a>
                     </li>
                     {% endfor %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">Déconnexion</a>
+                        <form id="logout" method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <input type="hidden">
+                        </form>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Connexion</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 <form class="form-inline my-2 my-lg-0" wtx-context="E7659275-E1C9-4245-992B-15B0F800E5CC">
                     <input class="form-control mr-sm-2 bg-dark outline-line" type="text" placeholder="Rechercher..." aria-label="Search" wtx-context="0C645D17-A0A1-4EB2-9B2B-090345D0A3FE">
