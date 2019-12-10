@@ -6,8 +6,11 @@ from myBlog import navigation
 
 
 # Create your views here.
-def my_account(request):
-    return None
+def profile(request):
+    context = {
+
+    }
+    return render(request, 'accounts/profile.html', context)
 
 
 def login(request):

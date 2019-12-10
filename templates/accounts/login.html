@@ -1,13 +1,30 @@
 {% extends 'content_base.html' %}
 
 {% block content_body %}
-<h1>Connexion</h1>
 
 {% if error %}
     <div class="alert alert-danger" role="alert">
       <strong>Attention : </strong> {{ error }}
     </div>
 {% endif %}
+
+{% if user.is_authenticated %}
+<div class="jumbotron">
+    <h1 class="display-3">Hey, {{ user.username }} !</h1>
+    <p class="lead">
+        Il semblerait que vous vous soyez perdu, vous êtes déjà connecté.
+    </p>
+    <hr class="my-2">
+    <p>
+        Nacia vous conseille également de favoriser la navigation mise à votre disposition sur le site, elle est pensée pour vous faciliter la tâche.
+    </p>
+    <p class="lead">
+        <a class="btn btn-outline-dark btn-lg" href="{% url 'characters' %}" role="button">Revenir à l'accueil</a>
+    </p>
+</div>
+
+{% else %}
+<h1>Connexion</h1>
 
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
@@ -23,4 +40,6 @@
         <button type="submit" class="btn btn-outline-dark">Connexion</button>
     </div>
 </form>
+{% endif %}
+
 {% endblock %}
