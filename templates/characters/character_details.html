@@ -48,9 +48,9 @@
                             <small class="text-muted">Publier le {{ comment.created_at|date:'d/m/Y' }} à {{ comment.created_at|date:'h:m' }}</small>
                         </p>
                         <p>
-                            {% if comment.status == 'moderated' %}
+                            {% if comment.status == 'moderer' %}
                                 <span class="font-weight-light font-italic text-muted">
-                                    [[ Moderated comment: {{ comment.texte_moderation }} ]]
+                                    [[ Commentaire modérer: {{ comment.texte_moderation }} ]]
                                 </span>
                             {% else %}
                                 {{ comment.texte }}

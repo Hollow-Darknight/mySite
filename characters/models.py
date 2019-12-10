@@ -19,20 +19,7 @@ class Personnage(models.Model):
         return slugify(self.prenom)
 
     def __str__(self):
-        return """Nom : {}
-        Prénom : {}
-        Age : {}
-        Origine : {}
-        Résumer : {}
-        Histoire : {}
-        created_at : {}
-        """.format(self.nom,
-                   self.prenom,
-                   self.age,
-                   self.origine,
-                   self.resumer,
-                   self.histoire,
-                   self.created_at)
+        return self.prenom
 
 
 class Galerie(models.Model):

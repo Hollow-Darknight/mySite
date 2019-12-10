@@ -40,4 +40,3 @@ class CommentaireAdmin(admin.ModelAdmin):
 
     list_editable = ('status', 'texte_moderation')
     list_filter = ('status', )
-
