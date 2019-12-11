@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib import messages
 
 from myBlog import navigation
 
@@ -18,14 +19,11 @@ def login(request):
         user = auth.authenticate(username=request.POST['username'], password=request.POST['pass'])
         if user is not None:
             auth.login(request, user)
-            return redirect('characters')
+            messages.success(request, "<strong>Bonjour {}</strong>, vous êtes maintenant connecté !".format(request.POST['username']))
+            return redirect('home')
         else:
-            message = "Adresse mail ou mot de passe incorrecte."
-            context = {
-                'error': message
-            }
-
-            return render(request, 'accounts/login.html', context)
+            messages.error(request, "<strong>Attention : </strong>Adresse mail ou mot de passe incorrecte.")
+            return render(request, 'accounts/login.html')
     else:
         return render(request, 'accounts/login.html')
 
@@ -36,22 +34,18 @@ def signup(request):
             try:
                 user = User.objects.get(username=request.POST['username'])
                 email = User.objects.get(email=request.POST['email'])
-                message = "Le nom d'utilisateur ou l'adresse email est déjà utilisé."
-                context = {
-                    'error': message
-                }
-                return render(request, 'accounts/signup.html', context)
+                messages.error(request, "<strong>Attention : </strong>Le nom d'utilisateur ou l'adresse email est "
+                                        "déjà utilisé.")
+                return render(request, 'accounts/signup.html')
             except User.DoesNotExist:
-                user = User.objects.create_user(username=request.POST['username'], password=request.POST['confirmPass'], email=request.POST['email'])
+                user = User.objects.create_user(username=request.POST['username'], password=request.POST['confirmPass'],
+                                                email=request.POST['email'])
                 auth.login(request, user)
-                message = "Bienvenue {}, vous êtes maintenant connecté !".format(request.POST['username'])
-                return redirect('characters')
+                messages.success(request, "<strong>Bienvenue {}</strong>, vous êtes maintenant connecté !".format(request.POST['username']))
+                return redirect('home')
         else:
-            message = "Les mots de passe ne correspondent pas."
-            context = {
-                'error': message
-            }
-            return render(request, 'accounts/signup.html', context)
+            messages.error(request, "Les mots de passe ne correspondent pas.")
+            return render(request, 'accounts/signup.html')
     else:
         return render(request, 'accounts/signup.html')
 
@@ -59,4 +53,5 @@ def signup(request):
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
-        return redirect('characters')
+        messages.success(request, "Vous avez bien été déconnecté")
+        return redirect('home')

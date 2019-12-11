@@ -1,13 +1,6 @@
-{% extends 'content_base.html' %}
+{% extends 'login_signup_form_content.html' %}
 
 {% block content_body %}
-
-{% if error %}
-    <div class="alert alert-danger" role="alert">
-      <strong>Attention : </strong> {{ error }}
-    </div>
-{% endif %}
-
 {% if user.is_authenticated %}
 <div class="jumbotron">
     <h1 class="display-3">Hey, {{ user.username }} !</h1>
@@ -25,7 +18,7 @@
 
 {% else %}
 <h1>Connexion</h1>
-
+{% include 'messages_non_dismissable.html' %}
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     <div class="form-group">

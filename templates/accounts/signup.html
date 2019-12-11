@@ -1,52 +1,48 @@
-{% extends 'content_base.html' %}
+{% extends 'login_signup_form_content.html' %}
 
 {% block content_body %}
+    {% if user.is_authenticated %}
+    <div class="jumbotron">
+        <h1 class="display-3">Hey, {{ user.username }} !</h1>
+        <p class="lead">
+            Il semblerait que vous vous soyez perdu, vous êtes déjà connecté.
+        </p>
+        <hr class="my-2">
+        <p>
+            Nacia vous conseille également de favoriser la navigation mise à votre disposition sur le site, elle est pensée pour vous faciliter la tâche.
+        </p>
+        <p class="lead">
+            <a class="btn btn-outline-dark btn-lg" href="{% url 'characters' %}" role="button">Revenir à l'accueil</a>
+        </p>
+    </div>
 
-{% if error %}
-    <div class="alert alert-danger" role="alert">
-      <strong>Attention : </strong> {{ error }}
-    </div>
-{% endif %}
+    {% else %}
+    <h1>Inscription</h1>
 
-{% if user.is_authenticated %}
-<div class="jumbotron">
-    <h1 class="display-3">Hey, {{ user.username }} !</h1>
-    <p class="lead">
-        Il semblerait que vous vous soyez perdu, vous êtes déjà connecté.
-    </p>
-    <hr class="my-2">
-    <p>
-        Nacia vous conseille également de favoriser la navigation mise à votre disposition sur le site, elle est pensée pour vous faciliter la tâche.
-    </p>
-    <p class="lead">
-        <a class="btn btn-outline-dark btn-lg" href="{% url 'characters' %}" role="button">Revenir à l'accueil</a>
-    </p>
-</div>
+    {% include 'messages_non_dismissable.html' %}
 
-{% else %}
-<h1>Inscription</h1>
-<form method="post" action="{% url 'signup' %}">
-    {% csrf_token %}
-    <div class="form-group">
-        <label for="username">Nom d'utilisateur :</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="Dupont">
-    </div>
-    <div class="form-group">
-        <label for="email">Adresse email :</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="azerty@azerty.xyz">
-    </div>
-    <div class="form-group">
-        <label for="pass">Mot de passe :</label>
-        <input type="password" class="form-control" id="pass" name="pass" placeholder="Mot de passe">
-    </div>
-    <div class="form-group">
-        <label for="confirmPass">Confirmation du mot de passe :</label>
-        <input type="password" class="form-control" id="confirmPass" name="confirmPass" placeholder="Confirmer le mot de passe">
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-outline-dark">Inscription</button>
-    </div>
-</form>
-{% endif %}
+    <form method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Dupont">
+        </div>
+        <div class="form-group">
+            <label for="email">Adresse email :</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="azerty@azerty.xyz">
+        </div>
+        <div class="form-group">
+            <label for="pass">Mot de passe :</label>
+            <input type="password" class="form-control" id="pass" name="pass" placeholder="Mot de passe">
+        </div>
+        <div class="form-group">
+            <label for="confirmPass">Confirmation du mot de passe :</label>
+            <input type="password" class="form-control" id="confirmPass" name="confirmPass" placeholder="Confirmer le mot de passe">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-dark">Inscription</button>
+        </div>
+    </form>
+    {% endif %}
 
 {% endblock %}
