@@ -67,6 +67,26 @@
 
         {# Block principal de contenu #}
         {% block body %}
+        {% if messages %}
+            <div class="row m-5">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 messages">
+                    {% for message in messages %}
+                    <div class="alert
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert-danger{% endif %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}alert-warning{% endif %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}alert-success{% endif %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}alert-info{% endif %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.DEBUG %}alert-dark{% endif %}
+                        {% if message.tags %}{{ message.tags }}{% endif %} alert-dismissable fade-show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {{ message|safe }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
             <div class="spinner-border text-dark" role="status">
                 <span class="sr-only">Chargement...</span>
             </div>

@@ -1,17 +1,9 @@
-<div class="row m-5">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 messages">
-        {% if messages %}
-            {% for message in messages %}
-            <div class="alert
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert-danger{% endif %}
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}alert-warning{% endif %}
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}alert-success{% endif %}
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}alert-info{% endif %}
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.DEBUG %}alert-dark{% endif %}
-            {% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
-                {{ message|safe }}
-            </div>
-            {% endfor %}
-        {% endif %}
-    </div>
+<div class="alert
+{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert-danger{% endif %}
+{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}alert-warning{% endif %}
+{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}alert-success{% endif %}
+{% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}alert-info{% endif %}
+{% if message.level == DEFAULT_MESSAGE_LEVELS.DEBUG %}alert-dark{% endif %}
+{% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
+    {{ message|safe }}
 </div>

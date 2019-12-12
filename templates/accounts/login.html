@@ -1,38 +1,48 @@
 {% extends 'login_signup_form_content.html' %}
 
 {% block content_body %}
-{% if user.is_authenticated %}
-<div class="jumbotron">
-    <h1 class="display-3">Hey, {{ user.username }} !</h1>
-    <p class="lead">
-        Il semblerait que vous vous soyez perdu, vous êtes déjà connecté.
-    </p>
-    <hr class="my-2">
-    <p>
-        Nacia vous conseille également de favoriser la navigation mise à votre disposition sur le site, elle est pensée pour vous faciliter la tâche.
-    </p>
-    <p class="lead">
-        <a class="btn btn-outline-dark btn-lg" href="{% url 'characters' %}" role="button">Revenir à l'accueil</a>
-    </p>
-</div>
+    {% if user.is_authenticated %}
+    <div class="jumbotron">
+        <h1 class="display-3">Hey, {{ user.username }} !</h1>
+        <p class="lead">
+            Il semblerait que vous vous soyez perdu, vous êtes déjà connecté.
+        </p>
+        <hr class="my-2">
+        <p>
+            Nacia vous conseille également de favoriser la navigation mise à votre disposition sur le site, elle est pensée pour vous faciliter la tâche.
+        </p>
+        <p class="lead">
+            <a class="btn btn-outline-dark btn-lg" href="{% url 'characters' %}" role="button">Revenir à l'accueil</a>
+        </p>
+    </div>
 
-{% else %}
-<h1>Connexion</h1>
-{% include 'messages_non_dismissable.html' %}
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <div class="form-group">
-        <label for="username">Nom d'utilisateur :</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="Dupont">
+    {% else %}
+    <h1>Connexion</h1>
+
+    {% if messages %}
+    <div class="row m-5">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 messages">
+            {% for message in messages %}
+                {% include 'messages_non_dismissable.html' %}
+            {% endfor %}
+        </div>
     </div>
-    <div class="form-group">
-        <label for="pass">Mot de passe :</label>
-        <input type="password" class="form-control" id="pass" name="pass" placeholder="Mot de passe">
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-outline-dark">Connexion</button>
-    </div>
-</form>
-{% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Dupont">
+        </div>
+        <div class="form-group">
+            <label for="pass">Mot de passe :</label>
+            <input type="password" class="form-control" id="pass" name="pass" placeholder="Mot de passe">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-dark">Connexion</button>
+        </div>
+    </form>
+    {% endif %}
 
 {% endblock %}

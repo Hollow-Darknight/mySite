@@ -25,48 +25,94 @@
 
 {# Zone Commentaires #}
 <div class="row mt-5" id="commentaires">
-    <h3>Commentaires ({{ comments.count }})</h3>
+    <h3 class="mb-2">Commentaires ({{ comments_list.count }})</h3>
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         {# Message utilisateurs #}
-        {% include 'messages_dismissable.html' %}
+        {% if message %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <strong>Et voilà !</strong> Votre commentaire a éte envoyé !
+        </div>
+        {% endif %}
 
         {# Affichage des commentaires existant #}
         <ul class="list-unstyled">
-                {% for comment in comments %}
-                <li class="media">
-                    <img class="mr-3" src="{% static 'img/characters/placeholder-img.png' %}">
-                    <div class="media-body">
-                        <h5 class="mt-0 mb-1">{{ comment.nom_auteur }}</h5>
-                        <p>
-                            <small class="text-muted">Publier le {{ comment.created_at|date:'d/m/Y' }} à {{ comment.created_at|date:'h:m' }}</small>
-                        </p>
-                        <p>
-                            {% if comment.status == 'moderer' %}
-                                <span class="font-weight-light font-italic text-muted">
-                                    [[ Commentaire modérer: {{ comment.texte_moderation }} ]]
-                                </span>
-                            {% else %}
-                                {{ comment.texte }}
-                            {% endif %}
-                        </p>
-                        <button class="btn btn-outline-dark" type="button"><small>Editer</small></button>
-                        <button class="btn btn-outline-dark" type="button"><small>Supprimer</small></button>
-                    </div>
+            {% for comment in comments %}
+            <li class="media">
+                <img class="mr-3" src="{% static 'img/characters/placeholder-img.png' %}">
+                <div class="media-body">
+                    <h5 class="mt-0 mb-1">{{ comment.nom_auteur }}</h5>
+                    <p>
+                        <small class="text-muted">Publier le {{ comment.created_at|date:'d/m/Y' }} à {{ comment.created_at|date:'h:m' }}</small>
+                    </p>
+                    <p>
+                        {% if comment.status == 'moderer' %}
+                            <span class="font-weight-light font-italic text-muted">
+                                [[ Commentaire modérer: {{ comment.texte_moderation }} ]]
+                            </span>
+                        {% else %}
+                            {{ comment.texte }}
+                        {% endif %}
+                    </p>
+
+                    {% if user.is_authenticate %}
+                    <a class="btn btn-outline-dark" href="javascript:{document.getElementById('edit').submit()}"><small>Editer</small></a>
+                    <form id="edit" method="post" action="{% url 'edit-comment' slug=personnage.slug post_id=comment.pk %}">
+                        {% csrf_token %}
+                        <input type="hidden">
+                    </form>
+                    <button class="btn btn-outline-dark" type="submit" id="delete"><small>Supprimer</small></button>
+                    {% endif %}
+                </div>
+            </li>
+            <hr>
+            {% empty %}
+            <li class="media">Il n'y a pas de commentaires !</li>
+            {% endfor %}
+        </ul>
+
+        {# Pagination des commentaires #}
+        {% if comments.has_other_pages %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#!" aria-label="Previous">
+                        <span aria-hidden="true">«</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
                 </li>
-                <hr>
-                {% empty %}
-                <li class="media">Il n'y a pas de commentaires !</li>
+                {% for i in comments.paginator.page_range %}
+                    {% if l <= i.number|add:5 and l >= i.number|add:-5 %}
+                    <li class="page-item"><a class="page-link" href="?page={{forloop.counter}}">{{forloop.counter}}</a></li>
+                    {% endif %}
                 {% endfor %}
+                {% for i in comments.paginator.page_range %}
+                    {% if comments.number == i %}
+                    <li class="page-item active"><a class="page-link">{{ i }} <span class="sr-only">(current)</span></a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item">
+                    <a class="page-link" href="#!" aria-label="Next">
+                        <span aria-hidden="true">»</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
             </ul>
+        </nav>
+        {% endif %}
 
-            <form action="{% url 'character-details' personnage.slug %}" method="post" class="form">
-                {% csrf_token %}
-                {% bootstrap_form comment_form %}
+        <form action="{% url 'character-details' personnage.slug %}" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form comment_form %}
 
-                {% buttons %}
-                    <button type="submit" class="btn btn-primary">Envoyer</button>
-                {% endbuttons %}
-            </form>
+            {% buttons %}
+                <button type="submit" class="btn btn-outline-dark" id="send">Envoyer</button>
+            {% endbuttons %}
+        </form>
     </div>
 </div>
 {% endblock %}
