@@ -33,7 +33,7 @@
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
             </button>
-            <strong>Et voilà !</strong> Votre commentaire a éte envoyé !
+            <strong>Et voilà !</strong> Votre commentaire a été envoyé !
         </div>
         {% endif %}
 
@@ -56,15 +56,6 @@
                             {{ comment.texte }}
                         {% endif %}
                     </p>
-
-                    {% if user.is_authenticate %}
-                    <a class="btn btn-outline-dark" href="javascript:{document.getElementById('edit').submit()}"><small>Editer</small></a>
-                    <form id="edit" method="post" action="{% url 'edit-comment' slug=personnage.slug post_id=comment.pk %}">
-                        {% csrf_token %}
-                        <input type="hidden">
-                    </form>
-                    <button class="btn btn-outline-dark" type="submit" id="delete"><small>Supprimer</small></button>
-                    {% endif %}
                 </div>
             </li>
             <hr>

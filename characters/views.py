@@ -36,19 +36,14 @@ def character_details(request, slug, message=''):
         comments = paginator.page(paginator.num_pages)
 
     if request.method == 'POST':
-        if request.POST['send']:
-            comment_form = CreateCommentForm(request.POST)
-            if comment_form.is_valid():
-                comment = comment_form.save(commit=False)
-                comment.personnage = personnage
-                comment.save()
+        comment_form = CreateCommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.personnage = personnage
+            comment.save()
 
-                args = [slug, "post-comment"]
-                return redirect(reverse('character-details-message', args=args) + '#commentaires')
-            elif request.POST['edit']:
-                return redirect('edit-comment')
-            elif request.POST['delete']:
-                pass
+            args = [slug, "post-comment"]
+            return redirect(reverse('character-details-message', args=args) + '#commentaires')
     else:
         comment_form = CreateCommentForm()
 
@@ -62,20 +57,3 @@ def character_details(request, slug, message=''):
     }
 
     return render(request, 'characters/character_details.html', context)
-
-
-def edit_comment(request, slug, post_id):
-    prenom = slug.capitalize()
-    personnage = get_object_or_404(Personnage, prenom=prenom)
-
-    comment = get_object_or_404(Commentaire, pk=post_id)
-    if request.method == 'POST':
-        # TODO : edit view
-        pass
-
-    context = {
-        'personnage': personnage,
-        'comment': comment
-    }
-
-    return render(request,'characters/edit_comment.html', context)
